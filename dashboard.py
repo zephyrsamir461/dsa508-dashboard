@@ -28,12 +28,18 @@ def get_uri():
 
 @st.cache_resource
 def get_db():
-    uri = get_uri()
-    if not uri:
-        st.error("MONGO_URI not found. Add it to .env or .streamlit/secrets.toml")
-        st.stop()
-    return MongoClient(uri, serverSelectionTimeoutMS=15000)[os.getenv("DB_NAME", "sample_mflix")]
+    uri = st.secrets["MONGO_URI"]
+    db_name = st.secrets.get("DB_NAME", "sample_mflix")
 
+    client = MongoClient(
+        uri,
+        serverSelectionTimeoutMS=15000,
+    )
+
+    # Force a connection check before returning the database.
+    client.admin.command("ping")
+
+    return client[db_name]
 
 @st.cache_data(ttl=600, show_spinner=False)
 def _run(coll, pipeline_json):

@@ -1,0 +1,10 @@
+pymongo[srv]>=4.6
+python-dotenv
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+vaderSentiment
+streamlit
+plotly

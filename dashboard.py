@@ -28,18 +28,16 @@ def get_uri():
 
 @st.cache_resource
 def get_db():
-    uri = st.secrets["MONGO_URI"]
-    db_name = st.secrets.get("DB_NAME", "sample_mflix")
-
     client = MongoClient(
-        uri,
+        f"mongodb+srv://{st.secrets['MONGO_HOST']}/",
+        username=st.secrets["database_reader"],
+        password=st.secrets["92B3fIziYznWYz0T"],
+        authSource="admin",
         serverSelectionTimeoutMS=15000,
     )
 
-    # Force a connection check before returning the database.
     client.admin.command("ping")
-
-    return client[db_name]
+    return client[st.secrets.get("DB_NAME", "sample_mflix")]
 
 @st.cache_data(ttl=600, show_spinner=False)
 def _run(coll, pipeline_json):

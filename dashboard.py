@@ -29,9 +29,9 @@ def get_uri():
 @st.cache_resource
 def get_db():
     client = MongoClient(
-        f"mongodb+srv://{st.secrets["MONGO_HOST"]}/",
-        username=st.secrets["dashboard_reader"],
-        password=st.secrets["92B3fIziYznWYz0T"],
+        f"mongodb+srv://{st.secrets['MONGO_HOST']}/",
+        username=st.secrets["MONGO_USERNAME"],
+        password=st.secrets["MONGO_PASSWORD"],
         authSource="admin",
         serverSelectionTimeoutMS=15000,
     )

@@ -30,7 +30,7 @@ def get_uri():
 def get_db():
     client = MongoClient(
         f"mongodb+srv://{st.secrets['MONGO_HOST']}/",
-        username=st.secrets["database_reader"],
+        username=st.secrets["dashboard_reader"],
         password=st.secrets["92B3fIziYznWYz0T"],
         authSource="admin",
         serverSelectionTimeoutMS=15000,
